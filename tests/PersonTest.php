@@ -68,7 +68,7 @@ class PersonTest extends TestCase
     private function step3ApplyDamage($person, int $damage, int $expectedHp): void
     {   
         Allure::runStep(
-            function () use ($person, $hp): void {
+            function () use ($person, $damage, $expectedHp): void {
                 Allure::addStep("Вложенный шаг. Внутри этого шага нет кода.");
                 //Элемент везения
                 if (random_int(0, 99) < 95) {
