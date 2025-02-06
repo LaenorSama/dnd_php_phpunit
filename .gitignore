@@ -23,3 +23,10 @@
 /app/Config/core.php
 /app/Config/database.php
 /vendors/*
+
+# Базовый игнор
+/build/
+/vendor/
+.phpunit.result.cache
+allure-results
+allure-report
