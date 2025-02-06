@@ -1,7 +1,6 @@
-// tests/PersonTest.php
 <?php
 
-use DndPersonDamage\Person;
+use DndPersonDamage\Person; // Подключаем класс Person из пространства имен DndPersonDamage
 use PHPUnit\Framework\TestCase;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;

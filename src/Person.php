@@ -1,6 +1,4 @@
-// person.php
 <?php
-
 namespace DndPersonDamage;
 
 class Person
