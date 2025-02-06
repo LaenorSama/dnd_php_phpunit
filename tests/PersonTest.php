@@ -35,6 +35,8 @@ class PersonTest extends TestCase
         $person = new Person("Alex");
         // Шаг 1: Создание объекта класса персонажа с именем "Alex".
         $this->step1CreatePerson($person,'Alex');
+        // Шаг 2: Проверка базового количества здоровья.
+        $this->step2CheckBaseHealth($person, 10);
 
     }
 
@@ -43,10 +45,21 @@ class PersonTest extends TestCase
         Allure::runStep(
             function () use ($person, $name): void {
                 Allure::addStep("Вложенный шаг. Внутри этого шага нет кода.");
-                // Проверяем, что имя персонажа соответствует ожидаемому
+                // Проверяем, что базовое здоровье 10
                 $this->assertEquals($name, $person->getName());
             },
             "Шаг 1. Проверка что у нас есть объект класса с нужным именем."
+        );
+    }
+    private function step2CheckBaseHealth(Person $person, string $hp): void
+    {
+        Allure::runStep(
+            function () use ($person, $hp): void {
+                Allure::addStep("Вложенный шаг. Внутри этого шага нет кода.");
+                // Проверяем, что имя персонажа соответствует ожидаемому
+                $this->assertEquals($hp, $person->getHp());
+            },
+            "Шаг 2. Проверяем, что базовое здоровье 10."
         );
     }
 
