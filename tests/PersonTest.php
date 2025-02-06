@@ -21,17 +21,29 @@ use Qameta\Allure\Attribute\Tag;
 class PersonTest extends TestCase
 {
     private const ERROR_TYPES = ['IndexError', 'ValueError', 'TypeError', 'KeyError'];
-
-    /**
+    public function damageDataProvider(): array
+    {
+        return [
+            [1, 9],
+            [2, 8],
+            [3, 7],
+            [4, 8], // 4th test already failed
+        ];
+    }
+    
+    /***
      * @param int $damage
      * @param int $expected
      * @dataProvider damageDataProvider
      * @throws Exception
-     */
+     ***/
+    #[DataProvider('damageDataProvider')]
     #[Description('Этот тест проверяет базовую функциональность системы.\nВ части получения чистого урона.')]
     #[DisplayName('Проверка получения чистого урона персонажу. PHPunit')]
     public function testTakeTrueDamage(int $damage, int $expected): void
     {
+        Allure::parameter('damage', $damage);
+        Allure::parameter('expected', $expected);
         $person = new Person("Alex");
         // Шаг 1: Создание объекта класса персонажа с именем "Alex".
         $this->step1CreatePerson($person,'Alex');
@@ -92,15 +104,4 @@ class PersonTest extends TestCase
                     throw new Exception("Случайная ошибка: $errorType");
             };
     }
-
-    public function damageDataProvider(): array
-    {
-        return [
-            [1, 9],
-            [2, 8],
-            [3, 7],
-            [4, 8], // 4th test already failed
-        ];
-    }
-
 }
