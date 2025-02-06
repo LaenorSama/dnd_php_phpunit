@@ -31,13 +31,13 @@ class PersonTest extends TestCase
         ];
     }
     
-    /***
+    /**
      * @param int $damage
      * @param int $expected
      * @dataProvider damageDataProvider
      * @throws Exception
-     ***/
-    #[DataProvider('damageDataProvider')]
+     */
+    //#[DataProvider('damageDataProvider')]
     #[Description('Этот тест проверяет базовую функциональность системы.\nВ части получения чистого урона.')]
     #[DisplayName('Проверка получения чистого урона персонажу. PHPunit')]
     public function testTakeTrueDamage(int $damage, int $expected): void
