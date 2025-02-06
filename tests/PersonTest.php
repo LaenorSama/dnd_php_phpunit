@@ -38,8 +38,7 @@ class PersonTest extends TestCase
         // Шаг 2: Проверка базового количества здоровья.
         $this->step2CheckBaseHealth($person, 10);
         // Шаг 3: Наносим урон.
-        //$this->step3ApplyDamage($person, $damage, $expected);
-
+        $this->step3ApplyDamage($person, $damage, $expected);
     }
 
     private function step1CreatePerson(Person $person, string $name): void
@@ -47,8 +46,6 @@ class PersonTest extends TestCase
         Allure::runStep(
             function () use ($person, $name): void {
                 Allure::addStep("Вложенный шаг. Внутри этого шага нет кода.");
-                // Добавим вложение картинку
-                Allure::attachmentFile("Лого", "/img/logo.png",  'image/png');
                 // Проверяем, что базовое здоровье 10
                 $this->assertEquals($name, $person->getName());
             },
@@ -66,11 +63,24 @@ class PersonTest extends TestCase
                 $this->assertEquals($hp, $person->getHp());
             },
                 "Шаг 2. Проверяем, что базовое здоровье 10."
-                
         );
     }
-
-
+    private function step3ApplyDamage($person, int $damage, int $expectedHp): void
+    {   
+        Allure::runStep(
+            function () use ($person, $hp): void {
+                Allure::addStep("Вложенный шаг. Внутри этого шага нет кода.");
+                //Элемент везения
+                if (random_int(0, 99) < 95) {
+                    $person->takeTrueDamage($damage);
+                }
+                // Лог операции
+                Allure::attachment('Лог операции', "Персонажу с именем {$person->getName()} нанесли урон {$damage} и у него осталось {$person->getHp()} очков здоровья.", "text/plain");
+                $this->assertEquals($expectedHp, $person->getHp(), "PHP Error: Чистый урон не прошел, или прошел некорректно.");
+            },
+            "Шаг 3. Проверяем, что урон проходит." 
+        );
+    }
     public function damageDataProvider(): array
     {
         return [
