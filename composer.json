@@ -1,5 +1,5 @@
 {
-    "name": "dnd-php-phpunit",
+    "name": "laenor/dnd-php-phpunit",
     "description": "An example of using PHPUnit with TestOps",
     "require": {
         "php": "^8.3"
