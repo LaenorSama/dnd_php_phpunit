@@ -34,18 +34,19 @@ class PersonTest extends TestCase
     {
         $person = new Person("Alex");
         // Шаг 1: Создание объекта класса персонажа с именем "Alex".
-        $this->step1CreatePerson('Alex');
+        $this->step1CreatePerson($person,'Alex');
 
     }
 
-    private function step1CreatePerson(string $name): void
+    private function step1CreatePerson(Person $person, string $name): void
     {
         Allure::runStep(
             "Шаг 1. Проверка что у нас есть объект класса с нужным именем.",
             function (StepContextInterface $step): void {
                 Allure::addStep("Вложенный шаг. Внутри этого шага нет кода.");
-            },
-            $this->assertEquals($name, $person->getName())
+                // Проверяем, что имя персонажа соответствует ожидаемому
+                $this->assertEquals($name, $person->getName());
+            }
         );
     }
 
