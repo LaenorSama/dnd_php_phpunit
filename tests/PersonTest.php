@@ -28,8 +28,8 @@ class PersonTest extends TestCase
      * @dataProvider damageDataProvider
      * @throws Exception
      */
-    #[Allure\Description('Этот тест проверяет базовую функциональность системы.\nВ части получения чистого урона.')]
-    #[Allure\Title('Проверка получения чистого урона персонажу. PHPunit')]
+    #[Description('Этот тест проверяет базовую функциональность системы.\nВ части получения чистого урона.')]
+    #[DisplayName('Проверка получения чистого урона персонажу. PHPunit')]
     public function testTakeTrueDamage(int $damage, int $expected): void
     {
         $person = new Person("Alex");
@@ -41,10 +41,11 @@ class PersonTest extends TestCase
     private function step1CreatePerson(string $name): void
     {
         Allure::runStep(
+            "Шаг 1. Проверка что у нас есть объект класса с нужным именем.",
             function (StepContextInterface $step): void {
-                Allure::addStep("Создаем объекта класса персонажа с именем'Alex'.");
+                Allure::addStep("Вложенный шаг. Внутри этого шага нет кода.");
             },
-            "Когда я его создаю, мне надо проверить его имя."
+            $this->assertEquals($name, $person->getName())
         );
     }
 
