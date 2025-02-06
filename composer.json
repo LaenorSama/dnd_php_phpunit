@@ -1,0 +1,16 @@
+{
+    "name": "dnd_php_phpunit",  // Название вашего проекта
+    "description": "An example of using PHPUnit with TestOps",  // Описание проекта
+    "require": {
+        "php": "^8.3"  // Зависимость от версии PHP (от 8.3 и выше)
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10",  // Зависимость от PHPUnit (для тестирования)
+        "allure-framework/allure-phpunit": "^3.0.1"  // Зависимость для интеграции с Allure
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DndPersonDamage\\": "src/"  // Автозагрузка классов из папки src/
+        }
+    }
+}

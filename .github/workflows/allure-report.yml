@@ -1,0 +1,90 @@
+# Название workflow
+name: PHPunit for TestOps
+
+# переменные окружения
+env:
+    PHP_VERSION: "8.3"
+    ALLURE_ENDPOINT: https://demo.qatools.cloud/
+    ALLURE_PROJECT_ID: 165
+    ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
+    ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
+    ALLURE_RESULTS: "build/allure-results"
+
+# Триггеры для запуска workflow
+on:
+  # пуш и пулл реквест
+  #  push:
+  #    branches:
+  #      - main
+  #  pull_request:
+  #    branches:
+  #      - main
+       
+  # вручную    
+    workflow_dispatch:
+      inputs:
+        ALLURE_JOB_RUN_ID:
+          description: "ALLURE_JOB_RUN_ID - service parameter (leave blank)"
+          required: false
+          default: ""
+        ENDPOINT:
+          description: "Endpoint"
+          required: false
+          default: "https://demo.qatools.cloud/"
+        BROWSER:
+          description: Browser
+          required: false
+          default: "Opera"
+        OS:
+          description: OS
+          required: false
+          default: "macOS" 
+        ALLURE_USERNAME:
+          description: "ALLURE_USERNAME service parameter. Leave blank"
+          required: false
+          default: ""
+  
+
+jobs:
+    autotests:
+        name: Run tests and generate Allure Report
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            
+            # подготовка окружения для всего воркфлоу
+            - name: Set up PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                php-version: ${{ env.PHP_VERSION }}
+                extensions: dom, mbstring
+            
+            # установка зависимостей через composer
+            - name: Install dependencies
+              run: composer install --no-progress --prefer-dist
+
+            # устанока allurectl (связующее звено с ТестОпс)
+            - name: Install allurectl
+              uses: allure-framework/setup-allurectl@v1
+              with:
+                allure-endpoint: ${{ env.ALLURE_ENDPOINT }}
+                allure-token: ${{ env.ALLURE_TOKEN }}
+                allure-project-id: ${{ env.ALLURE_PROJECT_ID }}
+
+            # создаем директорию для результатов
+            - name: Ensure allure-results directory exists
+              run: |
+                mkdir -p ${{ env.ALLURE_RESULTS }}
+
+            # запускаем тесты под присмортом allurectl     
+            - name: Run tests with allurectl
+              run: |
+                allurectl watch -- ./vendor/bin/phpunit --bootstrap vendor/autoload.php
+              continue-on-error: true
+      
+            - name: Upload results to Allure TestOps
+              run: |
+                allurectl upload --endpoint="${{ env.ALLURE_ENDPOINT }}" \
+                                   --project-id="${{ env.ALLURE_PROJECT_ID }}" \
+                                   --token="${{ env.ALLURE_TOKEN }}" \
+                                   ${{ env.ALLURE_RESULTS }}
