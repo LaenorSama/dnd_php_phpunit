@@ -1,16 +1,16 @@
 {
-    "name": "dnd_php_phpunit",  // Название вашего проекта
-    "description": "An example of using PHPUnit with TestOps",  // Описание проекта
+    "name": "dnd_php_phpunit",
+    "description": "An example of using PHPUnit with TestOps",
     "require": {
-        "php": "^8.3"  // Зависимость от версии PHP (от 8.3 и выше)
+        "php": "^8.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^10",  // Зависимость от PHPUnit (для тестирования)
-        "allure-framework/allure-phpunit": "^3.0.1"  // Зависимость для интеграции с Allure
+        "phpunit/phpunit": "^10",
+        "allure-framework/allure-phpunit": "^3.0.1"
     },
     "autoload-dev": {
         "psr-4": {
-            "DndPersonDamage\\": "src/"  // Автозагрузка классов из папки src/
-        }
+            "DndPersonDamage\\": "src/"
     }
+}
 }
