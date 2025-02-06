@@ -3,7 +3,7 @@
 use DndPersonDamage\Person; // Подключаем класс Person из пространства имен DndPersonDamage
 use PHPUnit\Framework\TestCase;
 use Qameta\Allure\Allure;
-use Qameta\Allure\attachment;
+use Qameta\Allure\Attachment;
 use Qameta\Allure\AttachmentType;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Allure\Title;
@@ -63,7 +63,7 @@ class PersonTest extends TestCase
             },
                 "Шаг 2. Проверяем, что базовое здоровье 10.",
                 // Лог операции
-                Allure::attachment('Лог операции', "Создан персонаж с именем {$person->getName()} и у него {$person->getHp()} очков здоровья.", AttachmentType::TEXT)
+                Allure::attachment('Лог операции', "Создан персонаж с именем {$person->getName()} и у него {$person->getHp()} очков здоровья.", "text/plain")
         );
     }
 
