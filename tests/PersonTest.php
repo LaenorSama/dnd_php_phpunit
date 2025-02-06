@@ -48,7 +48,7 @@ class PersonTest extends TestCase
             function () use ($person, $name): void {
                 Allure::addStep("Вложенный шаг. Внутри этого шага нет кода.");
                 // Добавим вложение картинку
-                Allure::attachment("Лого", "/img/logo.jpeg",  'image/jpeg');
+                Allure::attachment("Лого", "/img/logo.png",  'image/png');
                 // Проверяем, что базовое здоровье 10
                 $this->assertEquals($name, $person->getName());
             },
