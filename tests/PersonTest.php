@@ -37,6 +37,8 @@ class PersonTest extends TestCase
         $this->step1CreatePerson($person,'Alex');
         // Шаг 2: Проверка базового количества здоровья.
         $this->step2CheckBaseHealth($person, 10);
+        // Шаг 3: Наносим урон.
+     //   $this->step3ApplyDamage($person, $damage, $expected);
 
     }
 
@@ -59,7 +61,9 @@ class PersonTest extends TestCase
                 // Проверяем, что имя персонажа соответствует ожидаемому
                 $this->assertEquals($hp, $person->getHp());
             },
-            "Шаг 2. Проверяем, что базовое здоровье 10."
+                "Шаг 2. Проверяем, что базовое здоровье 10.",
+                // Лог операции
+                Allure::attachment('Лог операции', "Создан персонаж с именем {$person->getName()} и у него {$person->getHp()} очков здоровья.", AttachmentType::TEXT);
         );
     }
 
