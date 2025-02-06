@@ -38,7 +38,7 @@ class PersonTest extends TestCase
         // Шаг 2: Проверка базового количества здоровья.
         $this->step2CheckBaseHealth($person, 10);
         // Шаг 3: Наносим урон.
-     //   $this->step3ApplyDamage($person, $damage, $expected);
+        $this->step3ApplyDamage($person, $damage, $expected);
 
     }
 
@@ -47,6 +47,8 @@ class PersonTest extends TestCase
         Allure::runStep(
             function () use ($person, $name): void {
                 Allure::addStep("Вложенный шаг. Внутри этого шага нет кода.");
+                // Добавим вложение картинку
+                Allure::attachment("Лого", "/img/logo.jpeg",  'image/jpeg');
                 // Проверяем, что базовое здоровье 10
                 $this->assertEquals($name, $person->getName());
             },
@@ -58,12 +60,13 @@ class PersonTest extends TestCase
         Allure::runStep(
             function () use ($person, $hp): void {
                 Allure::addStep("Вложенный шаг. Внутри этого шага нет кода.");
+                // Лог операции
+                Allure::attachment("Лог операции", "Создан персонаж с именем {$person->getName()} и у него {$person->getHp()} очков здоровья.", "text/plain");
                 // Проверяем, что имя персонажа соответствует ожидаемому
                 $this->assertEquals($hp, $person->getHp());
             },
-                "Шаг 2. Проверяем, что базовое здоровье 10.",
-                // Лог операции
-                Allure::attachment('Лог операции', "Создан персонаж с именем {$person->getName()} и у него {$person->getHp()} очков здоровья.", "text/plain")
+                "Шаг 2. Проверяем, что базовое здоровье 10."
+                
         );
     }
 
