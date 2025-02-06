@@ -8,6 +8,11 @@
         "phpunit/phpunit": "^10",
         "allure-framework/allure-phpunit": "^3.0.1"
     },
+    "autoload": {
+        "psr-4": {
+            "DndPersonDamage\\": "src/"
+        }
+    },
     "autoload-dev": {
         "psr-4": {
             "DndPersonDamage\\": "src/"
