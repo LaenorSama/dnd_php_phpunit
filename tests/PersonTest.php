@@ -63,7 +63,7 @@ class PersonTest extends TestCase
             },
                 "Шаг 2. Проверяем, что базовое здоровье 10.",
                 // Лог операции
-                Allure::attachment('Лог операции', "Создан персонаж с именем {$person->getName()} и у него {$person->getHp()} очков здоровья.", AttachmentType::TEXT);
+                Allure::attachment('Лог операции', "Создан персонаж с именем {$person->getName()} и у него {$person->getHp()} очков здоровья.", AttachmentType::TEXT)
         );
     }
 
