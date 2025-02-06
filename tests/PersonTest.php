@@ -42,7 +42,7 @@ class PersonTest extends TestCase
     {
         Allure::runStep(
             "Шаг 1. Проверка что у нас есть объект класса с нужным именем.",
-            function (StepContextInterface $step): void {
+            function () use ($person, $name): void {
                 Allure::addStep("Вложенный шаг. Внутри этого шага нет кода.");
                 // Проверяем, что имя персонажа соответствует ожидаемому
                 $this->assertEquals($name, $person->getName());
