@@ -39,6 +39,8 @@ class PersonTest extends TestCase
         $this->step2CheckBaseHealth($person, 10);
         // Шаг 3: Наносим урон.
         $this->step3ApplyDamage($person, $damage, $expected);
+        // Шаг 4: Вставляем случайную ошибку.
+        $this->step4IntroduceRandomError();
     }
 
     private function step1CreatePerson(Person $person, string $name): void
@@ -81,6 +83,16 @@ class PersonTest extends TestCase
             "Шаг 3. Проверяем, что урон проходит." 
         );
     }
+    private function step4IntroduceRandomError(): void {
+                Allure::addStep("Шаг на удачу: генерация случайной ошибки.");
+                //Элемент везения
+                if (random_int(0, 99) < 20) { 
+                    // 20% шанс на ошибку
+                    $errorType = self::ERROR_TYPES[random_int(0, 3)];
+                    throw new Exception("Случайная ошибка: $errorType");
+            };
+    }
+
     public function damageDataProvider(): array
     {
         return [
