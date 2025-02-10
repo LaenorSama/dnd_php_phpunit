@@ -99,4 +99,4 @@ jobs:
             #    allurectl upload --endpoint="${{ env.ALLURE_ENDPOINT }}" \
             #                       --project-id="${{ env.ALLURE_PROJECT_ID }}" \
             #                       --token="${{ env.ALLURE_TOKEN }}" \
-                                   ${{ env.ALLURE_RESULTS }}
+            #                       ${{ env.ALLURE_RESULTS }}
