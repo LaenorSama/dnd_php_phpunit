@@ -12,7 +12,7 @@ env:
     ALLURE_RESULTS: "build/allure-results"
     BROWSER: ${{ inputs.BROWSER || 'OperaGX' }}
     OS: ${{ inputs.OS || 'Win_11' }}
-    LAUNCH_TYPE: ${{ inputs.LAUNCH_TYPE || 'push' }}
+    #LAUNCH_TYPE: ${{ inputs.LAUNCH_TYPE || 'push' }}
     BRANCH: ${{ github.ref_name }}
 
 # Триггеры для запуска workflow
@@ -31,30 +31,30 @@ on:
             description: "Endpoint"
             required: false
             default: "https://demo.qatools.cloud/"
-            BROWSER:
-                description: Browser
-                required: false
-                default: "OperaGX"
-            OS:
-                description: OS
-                required: false
-                default: "Win_11"
-            LAUNCH_TYPE:
-                description: LAUNCH_TYPE
-                required: false
-                default: "manual"
+          BROWSER:
+            description: Browser
+            required: false
+            default: "OperaGX"
+          OS:
+            description: OS
+            required: false
+            default: "Win_11"
+          #LAUNCH_TYPE:
+          #  description: LAUNCH_TYPE
+          #  required: false
+          #  default: "manual"
           ALLURE_JOB_RUN_ID:
-              description: "ALLURE_JOB_RUN_ID - service parameter (leave blank)"
-              required: false
-              default: ""
+            description: "ALLURE_JOB_RUN_ID - service parameter (leave blank)"
+            required: false
+            default: ""
           ALLURE_USERNAME:
-              description: "ALLURE_USERNAME - service parameter (leave blank)"
-              required: false
-              default: ""
+            description: "ALLURE_USERNAME - service parameter (leave blank)"
+            required: false
+            default: ""
           BRANCH:
-              description: "Git branch (filled automatically)"
-              required: false
-              default: ""
+            description: "Git branch (filled automatically)"
+            required: false
+            default: ""
   
 
 jobs:
