@@ -7,7 +7,7 @@ env:
     ENDPOINT: https://demo.qatools.cloud/
     PROJECT_ID: 165
     TOKEN: ${{ secrets.TOKEN }}
-    JOB_RUN_ID: ${{ github.event.inputs.JOB_RUN_ID }}
+    ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
     RESULTS: "build/allure-results"
     BROWSER: ${{ inputs.BROWSER || 'OperaGX' }}
     OS: ${{ inputs.OS || 'Win_11' }}
@@ -33,8 +33,8 @@ on:
             description: OS
             required: false
             default: "Win_11"
-          JOB_RUN_ID:
-            description: "JOB_RUN_ID - service parameter (leave blank)"
+          ALLURE_JOB_RUN_ID:
+            description: "ALLURE_JOB_RUN_ID - service parameter (leave blank)"
             required: false
             default: ""
           USERNAME:
@@ -87,7 +87,7 @@ jobs:
               #  ENDPOINT: ${{ env.ENDPOINT }}
               #  BROWSER: ${{ github.event.inputs.BROWSER}}
               #  OS: ${{ github.event.inputs.OS}}
-              #  JOB_RUN_ID: ${{ github.event.inputs.JOB_RUN_ID }}
+              #  ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
 
             # загружаем файлы в ТестОпс
             #- name: Upload results to Allure TestOps
