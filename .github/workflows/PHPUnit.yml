@@ -4,12 +4,11 @@ name: testops_PHPunit
 # переменные окружения
 env:
     PHP_VERSION: "8.3"
-    ALLURE_ENDPOINT: https://demo.qatools.cloud/
     ENDPOINT: https://demo.qatools.cloud/
-    ALLURE_PROJECT_ID: 165
-    ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
-    ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
-    ALLURE_RESULTS: "build/allure-results"
+    PROJECT_ID: 165
+    TOKEN: ${{ secrets.TOKEN }}
+    JOB_RUN_ID: ${{ github.event.inputs.JOB_RUN_ID }}
+    RESULTS: "build/allure-results"
     BROWSER: ${{ inputs.BROWSER || 'OperaGX' }}
     OS: ${{ inputs.OS || 'Win_11' }}
     BRANCH: ${{ github.ref_name }}
@@ -34,12 +33,12 @@ on:
             description: OS
             required: false
             default: "Win_11"
-          ALLURE_JOB_RUN_ID:
-            description: "ALLURE_JOB_RUN_ID - service parameter (leave blank)"
+          JOB_RUN_ID:
+            description: "JOB_RUN_ID - service parameter (leave blank)"
             required: false
             default: ""
-          ALLURE_USERNAME:
-            description: "ALLURE_USERNAME - service parameter (leave blank)"
+          USERNAME:
+            description: "USERNAME - service parameter (leave blank)"
             required: false
             default: ""
 
@@ -68,14 +67,14 @@ jobs:
             - name: Install allurectl
               uses: allure-framework/setup-allurectl@v1
               with:
-                allure-endpoint: ${{ env.ALLURE_ENDPOINT }}
-                allure-token: ${{ env.ALLURE_TOKEN }}
-                allure-project-id: ${{ env.ALLURE_PROJECT_ID }}
+                allure-endpoint: ${{ env.ENDPOINT }}
+                allure-token: ${{ env.TOKEN }}
+                allure-project-id: ${{ env.PROJECT_ID }}
 
             # создаем директорию для результатов
             - name: Ensure allure-results directory exists
               run: |
-                mkdir -p ${{ env.ALLURE_RESULTS }}
+                mkdir -p ${{ env.RESULTS }}
 
             # запускаем тесты под присмортом allurectl     
             - name: Run tests with allurectl
@@ -84,16 +83,15 @@ jobs:
               continue-on-error: true
               #env:
               #  BRANCH: ${{ github.ref_name }}
-              #  #ENDPOINT: ${{ github.event.inputs.ENDPOINT}}
-              #  ENDPOINT: ${{ env.ALLURE_ENDPOINT }}
+              #  ENDPOINT: ${{ env.ENDPOINT }}
               #  BROWSER: ${{ github.event.inputs.BROWSER}}
               #  OS: ${{ github.event.inputs.OS}}
-              #  ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
+              #  JOB_RUN_ID: ${{ github.event.inputs.JOB_RUN_ID }}
 
             # загружаем файлы в ТестОпс
             #- name: Upload results to Allure TestOps
             #  run: |
-            #    allurectl upload --endpoint="${{ env.ALLURE_ENDPOINT }}" \
-            #                       --project-id="${{ env.ALLURE_PROJECT_ID }}" \
-            #                       --token="${{ env.ALLURE_TOKEN }}" \
-            #                       ${{ env.ALLURE_RESULTS }}
+            #    allurectl upload --endpoint="${{ env.ENDPOINT }}" \
+            #                       --project-id="${{ env.PROJECT_ID }}" \
+            #                       --token="${{ env.TOKEN }}" \
+            #                       ${{ env.RESULTS }}
