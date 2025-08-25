@@ -82,12 +82,12 @@ jobs:
               run: |
                 allurectl watch -- ./vendor/bin/phpunit --bootstrap vendor/autoload.php
               continue-on-error: true
-              #env:
-              #  BRANCH: ${{ github.ref_name }}
-              #  ENDPOINT: ${{ env.ENDPOINT }}
-              #  BROWSER: ${{ github.event.inputs.BROWSER}}
-              #  OS: ${{ github.event.inputs.OS}}
-              #  ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
+              env:
+                BRANCH: ${{ github.ref_name }}
+                ENDPOINT: ${{ env.ENDPOINT }}
+                BROWSER: ${{ github.event.inputs.BROWSER}}
+                OS: ${{ github.event.inputs.OS}}
+                ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
 
             # загружаем файлы в ТестОпс
             #- name: Upload results to Allure TestOps
