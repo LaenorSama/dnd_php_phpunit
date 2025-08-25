@@ -8,7 +8,7 @@ env:
     PROJECT_ID: 165
     TOKEN: ${{ secrets.TOKEN }}
     ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
-    RESULTS: "build/allure-results"
+    ALLURE_RESULTS: "build/allure-results"
     BROWSER: ${{ inputs.BROWSER || 'OperaGX' }}
     OS: ${{ inputs.OS || 'Win_11' }}
     BRANCH: ${{ github.ref_name }}
@@ -70,24 +70,23 @@ jobs:
                 allure-endpoint: ${{ env.ENDPOINT }}
                 allure-token: ${{ env.TOKEN }}
                 allure-project-id: ${{ env.PROJECT_ID }}
-                allure-results: ${{env.RESULTS}}
 
             # создаем директорию для результатов
             - name: Ensure allure-results directory exists
               run: |
-                mkdir -p ${{ env.RESULTS }}
+                mkdir -p ${{ env.ALLURE_RESULTS }}
 
             # запускаем тесты под присмортом allurectl     
             - name: Run tests with allurectl
               run: |
                 allurectl watch -- ./vendor/bin/phpunit --bootstrap vendor/autoload.php
               continue-on-error: true
-              env:
-                BRANCH: ${{ github.ref_name }}
-                ENDPOINT: ${{ env.ENDPOINT }}
-                BROWSER: ${{ github.event.inputs.BROWSER}}
-                OS: ${{ github.event.inputs.OS}}
-                ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
+              #env:
+              #  BRANCH: ${{ github.ref_name }}
+              #  ALLURE_ENDPOINT: ${{ env.ENDPOINT }}
+              #  BROWSER: ${{ github.event.inputs.BROWSER}}
+              #  OS: ${{ github.event.inputs.OS}}
+              #  ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
 
             # загружаем файлы в ТестОпс
             #- name: Upload results to Allure TestOps
@@ -95,4 +94,4 @@ jobs:
             #    allurectl upload --endpoint="${{ env.ENDPOINT }}" \
             #                       --project-id="${{ env.PROJECT_ID }}" \
             #                       --token="${{ env.TOKEN }}" \
-            #                       ${{ env.RESULTS }}
+            #                       ${{ env.ALLURE_RESULTS }}
