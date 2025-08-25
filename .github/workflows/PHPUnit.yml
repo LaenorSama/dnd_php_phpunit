@@ -70,6 +70,7 @@ jobs:
                 allure-endpoint: ${{ env.ENDPOINT }}
                 allure-token: ${{ env.TOKEN }}
                 allure-project-id: ${{ env.PROJECT_ID }}
+                allure-results: ${{env.RESULTS}}
 
             # создаем директорию для результатов
             - name: Ensure allure-results directory exists
